@@ -1,0 +1,10 @@
+{
+    "touchui.deving": false,
+    "touchui.enable": true,
+    "files.associations": {
+        "*.ui": "vue"
+    },
+    "vetur.extensions": [
+        ".ui"
+    ]
+}

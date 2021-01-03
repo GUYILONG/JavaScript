@@ -1,0 +1,187 @@
+<template>
+  <ui-page>
+<!-- 视图层 -->
+<!-- <ui-view class="page-body">
+  <ui-view class="page-body-wording">
+    <ui-view class="page-body-div">
+      点击向服务器发起请求
+    </ui-view>
+    <ui-view class="code">
+      <ui-view class="title">服务器返回：</ui-view>
+      <pre>{{res}}</pre>
+    </ui-view> -->
+  <!-- </ui-view> -->
+  <ui-view class="btn-area">
+    <!-- <pre>{{res}}</pre> -->
+
+    <ui-view ui:for="{{arryData}}">
+  {{index}}: {{item.create_time}}
+</ui-view>
+    <ui-button bindtap="makeRequest" type="primary" disabled="{{loading}}" loading="{{loading}}">request</ui-button>
+  </ui-view>
+<!-- </ui-view> -->
+<!-- <ui-view> Hello {{name}}! </ui-view>
+<ui-button bindtap="changeName"> Click me! </ui-button>
+
+<ui-list-view config="{{ config }}"> 
+  <template scope="props">
+    <ui-list-view-item>
+      <ui-text>{{props.item.titlename}}</ui-text>
+    </ui-list-view-item>
+  </template>
+</ui-list-view>
+
+
+<ui-list-view data="{{ guesslikes }}"> 
+  <template scope="props">
+    <ui-list-view-item>
+      <ui-text>{{props.item.titlename}}</ui-text>
+    </ui-list-view-item>
+  </template>
+</ui-list-view> -->
+  </ui-page>
+</template>
+
+<script>
+const requestUrl =
+  "http://apply.renqiukai.com/api/signup/templates?token=24f913b8bb4c7251ea1077b375250b9e_shys_web&page=1&page_size=10";
+export default {
+  data() {
+    return {
+      loading: false,
+      res: "",
+      arryData: []
+    };
+  },
+  methods: {
+    makeRequest() {
+      var self = this;
+      self.loading = true;
+      ui.request({
+        url: requestUrl,
+        data: {
+          // noncestr: Date.now()
+          x: "",
+          y: ""
+        },
+        success: function(result) {
+          debugger;
+          self.loading = false;
+          if (result.statusCode == 200) {
+            console.log("request success", result);
+            self.res = JSON.stringify(result, null, 4);
+            self.arryData = result.data.data;
+          }
+        },
+        fail: function({ errMsg }) {
+          console.log("request fail", errMsg);
+          self.loading = false;
+        }
+      });
+    }
+  }
+};
+// export default {
+//   data () {
+//     return {
+//       guesslikes: [{
+//         titlename: '旺顺阁鱼头泡饼',
+//         titleinfo: '[王府井/东单]1斤鱼头券3选1',
+//         titlem: '677m',
+//       }, {
+//         titlename: '吉野家',
+//         titleinfo: '[149店通用]吉汁烧鱼+茶碗蒸+中可乐1份',
+//         titlem: '1237m',
+//       }]
+//     }
+//   }
+// }
+// export default {
+//   url:
+//     "http://apply.renqiukai.com/api/signup/templates?token=24f913b8bb4c7251ea1077b375250b9e_shys_web&page=1&page_size=10",
+//   data() {
+//     return {
+//       id: "",
+//       gold: "",
+//       app_id: "",
+//       create_time: "",
+//       update_time: "",
+//       is_deleted: 0,
+//       name: "TouchUI"
+//     };
+//   },
+//   header: {
+//     "content-type": "application/json"
+//   },
+//   success: function(res) {
+//     console.log(res.data);
+//   },
+//   methods: {
+//     changeName() {
+//       this.name = "UI Leader";
+//       this.id = "";
+//     }
+//   }
+// };
+// 逻辑层
+// const requestUrl =
+//   "http://apply.renqiukai.com/api/signup/templates?token=24f913b8bb4c7251ea1077b375250b9e_shys_web&page=1&page_size=10";
+// export default {
+//   config: {
+//     navigationBarTitleText: "首页",
+//     backgroundColor: "#F4F4F4",
+//     navigationBarTextStyle: "black"
+//   },
+//   data() {
+//     return {
+//       loading: false,
+//       msg: "",
+//       id: "",
+//       gold: "",
+//       app_id: "",
+//       create_time: "",
+//       update_time: "",
+//       is_deleted: 0
+//     };
+//   },
+//   methods: {
+//     makeRequest() {
+//       var self = this;
+//       self.loading = true;
+//       ui.request({
+//         url: requestUrl,
+
+//         // noncestr: Date.now()
+//         success: function(result) {
+//           this.msg = "";
+//           this.id = "";
+//           this.gold = "";
+//           this.app_id = "";
+//           this.create_time = "";
+//           this.update_time = "";
+//           this.is_deleted = "";
+//           self.loading = false;
+//           console.log("request success", result);
+//           self.res = JSON.stringify(result, null, 4);
+//         },
+//         fail: function({ errMsg }) {
+//           console.log("request fail", errMsg);
+//           self.loading = false;
+//         }
+//       });
+//     }
+//   }
+// };
+</script>
+
+<style lang="less">
+.content {
+  .mix-flex-center();
+}
+.sliderContent {
+  padding: 50px 50px 0px 50px;
+}
+.buttonContent {
+  padding: 50px;
+}
+</style>
